@@ -1,7 +1,5 @@
-//Employee
+//Emploueee
 
-
-//Classclasacla
 package recitation;
 
 public class Employee {
@@ -10,13 +8,11 @@ public class Employee {
     private String employee_name;
     private double employee_salary;
 
-    
     public Employee(int employee_id, String employee_name, double employee_salary) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
         this.employee_salary = employee_salary;
     }
-
 
     public int getEmployeeId() {
         return employee_id;
@@ -26,7 +22,6 @@ public class Employee {
         this.employee_id = employee_id;
     }
 
-  
     public String getEmployeeName() {
         return employee_name;
     }
@@ -35,30 +30,33 @@ public class Employee {
         this.employee_name = employee_name;
     }
 
-
     public String getEmployeeSalary() {
         return String.format("Pesos %,.2f", employee_salary);
     }
 
-    // ➤ Feature 1: Calculate Annual Salary
-    public String calculateAnnualSalary() {
-        double annual = employee_salary * 12;
-        return String.format("Pesos %,.2f", annual);
+    public String getEmployeeCode() {
+        String firstThree = employee_name.substring(0, 3).toUpperCase();
+        return firstThree + "-" + employee_id;
     }
 
+  
+    public boolean isEligibleForPromotion() {
+        return employee_salary > 30000;
+    }
 
     public String showSummary() {
         return "\n--- Employee Summary ---" +
                "\nID: " + employee_id +
                "\nName: " + employee_name +
+               "\nEmployee Code: " + getEmployeeCode() +
                "\nMonthly Salary: " + getEmployeeSalary() +
-               "\nAnnual Salary: " + calculateAnnualSalary() +
+               "\nEligible for Promotion: " + (isEligibleForPromotion() ? "Yes" : "No") +
                "\n------------------------\n";
     }
 }
 
 
-//mainEmployee
+//mainClass
 
 package recitation;
 
@@ -67,18 +65,18 @@ public class EmployeeMain {
 
         Employee emp = new Employee(1, "John Doe", 50000);
 
-        System.out.println(emp.getEmployeeName());
-        System.out.println(emp.getEmployeeSalary());
+        System.out.println("Employee Code: " + emp.getEmployeeCode());
+        System.out.println("Eligible for Promotion: " + 
+                           (emp.isEligibleForPromotion() ? "Yes" : "No"));
 
-        System.out.println(emp.calculateAnnualSalary());
         System.out.println(emp.showSummary());
     }
 }
 
 
-//Car
-//catclass
 
+
+//cat
 
 package recitation;
 
@@ -88,7 +86,6 @@ public class Car {
     private String model_name;
     private int year;
     private double mileage;
-
 
     public Car(String company_name, String model_name, int year, double mileage) {
         this.company_name = company_name;
@@ -121,33 +118,37 @@ public class Car {
         this.year = year;
     }
 
-
     public double getMileage() {
         return mileage;
     }
 
 
-    public int calculateCarAge() {
-        int currentYear = java.time.Year.now().getValue();
-        return currentYear - year;
+    public boolean needsMaintenance() {
+        return mileage > 100000;
     }
 
-    public boolean isFuelEfficient() {
-        return mileage < 50000;
+
+    public String getCarCondition() {
+        int currentYear = java.time.Year.now().getValue();
+        int age = currentYear - year;
+
+        if (age <= 3) {
+            return "New";
+        } else {
+            return "Old";
+        }
     }
 }
 
 
 
-//mainCat
-
+//carmain
 
 package recitation;
 
 public class carMain {
     public static void main(String[] args) {
 
-    
         Car myCar = new Car("Toyota", "Corolla", 2019, 42000);
 
         System.out.println("Company: " + myCar.getCompanyName());
@@ -155,8 +156,9 @@ public class carMain {
         System.out.println("Year: " + myCar.getYear());
         System.out.println("Mileage: " + myCar.getMileage() + " km");
 
-        System.out.println("Car Age: " + myCar.calculateCarAge() + " years");
-        System.out.println("Fuel Efficient: " +
-                (myCar.isFuelEfficient() ? "Yes" : "No"));
+        System.out.println("Car Condition: " + myCar.getCarCondition());
+        System.out.println("Needs Maintenance: " + (myCar.needsMaintenance() ? "Yes" : "No"));
     }
 }
+
+
