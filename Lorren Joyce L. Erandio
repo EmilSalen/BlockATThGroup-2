@@ -1,0 +1,205 @@
+import java.text.NumberFormat;
+
+public class EmployeeLorren {
+    // Private instance variables
+    private int employee_id;
+    private String employee_name;
+    private double employee_salary;
+    private int employee_age; // new variable for retirement feature
+
+    // Constructor
+    public EmployeeLorren(int id, String name, double salary, int age) {
+        this.employee_id = id;
+        this.employee_name = name;
+        this.employee_salary = salary;
+        this.employee_age = age;
+    }
+
+    // Getter and Setter for employee_id
+    public int getEmployeeId() {
+        return employee_id;
+    }
+
+    public void setEmployeeId(int id) {
+        this.employee_id = id;
+    }
+
+    // Getter and Setter for employee_name
+    public String getEmployeeName() {
+        return employee_name;
+    }
+
+    public void setEmployeeName(String name) {
+        this.employee_name = name;
+    }
+
+    // Getter for employee_salary (formatted)
+    public String getEmployeeSalary() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(employee_salary);
+    }
+
+    // Getter and Setter for age
+    public int getEmployeeAge() {
+        return employee_age;
+    }
+
+    public void setEmployeeAge(int age) {
+        this.employee_age = age;
+    }
+
+    // Feature 1: Calculate annual salary
+    public String getAnnualSalary() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(employee_salary * 12);
+    }
+
+    // Feature 2: Give performance-based raise
+    public void performanceRaise(String rating) {
+        switch (rating.toLowerCase()) {
+            case "excellent":
+                employee_salary *= 1.15;
+                break;
+            case "good":
+                employee_salary *= 1.10;
+                break;
+            case "average":
+                employee_salary *= 1.05;
+                break;
+            default:
+                System.out.println("No raise applied. Invalid rating.");
+        }
+    }
+
+    // Feature 3: Check retirement eligibility
+    public boolean isEligibleForRetirement() {
+        return employee_age >= 60; // Example retirement age
+    }
+}
+
+
+public class EmployeeLorrenMain {
+
+    public static void main(String[] args) {
+        // Create Employee object (id, name, salary, age)
+        EmployeeLorren emp = new EmployeeLorren(101, "Mico", 55000, 45);
+
+        // Display initial details
+        System.out.println("=== Initial Employee Details ===");
+        System.out.println("Employee ID: " + emp.getEmployeeId());
+        System.out.println("Name: " + emp.getEmployeeName());
+        System.out.println("Salary: " + emp.getEmployeeSalary());
+        System.out.println("Annual Salary: " + emp.getAnnualSalary());
+        System.out.println("Eligible for Retirement: " + (emp.isEligibleForRetirement() ? "Yes" : "No"));
+
+        // Give performance-based raise
+        emp.performanceRaise("Excellent");
+        System.out.println("\nAfter performance-based raise (Excellent):");
+        System.out.println("Salary: " + emp.getEmployeeSalary());
+        System.out.println("Annual Salary: " + emp.getAnnualSalary());
+
+        // Update employee age to test retirement eligibility
+        emp.setEmployeeAge(62);
+        System.out.println("\nAfter updating age to 62:");
+        System.out.println("Eligible for Retirement: " + (emp.isEligibleForRetirement() ? "Yes" : "No"));
+    }
+}
+
+
+
+public class CarLorren {
+    // Private instance variables
+    private String company_name;
+    private String model_name;
+    private int year;
+    private double mileage;
+
+    // Constructor
+    public CarLorren(String company, String model, int year, double mileage) {
+        this.company_name = company;
+        this.model_name = model;
+        this.year = year;
+        this.mileage = mileage;
+    }
+
+    // Getter and Setter for company_name
+    public String getCompanyName() {
+        return company_name;
+    }
+
+    public void setCompanyName(String company) {
+        this.company_name = company;
+    }
+
+    // Getter and Setter for model_name
+    public String getModelName() {
+        return model_name;
+    }
+
+    public void setModelName(String model) {
+        this.model_name = model;
+    }
+
+    // Getter and Setter for year
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    // Getter for mileage
+    public double getMileage() {
+        return mileage;
+    }
+
+    // Feature 1: Calculate car age
+    public int getCarAge(int currentYear) {
+        return currentYear - year;
+    }
+
+    // Feature 2: Update mileage
+    public void addMileage(double distance) {
+        if (distance > 0) {
+            mileage += distance;
+            System.out.println("Car driven " + distance + " km. Total mileage: " + mileage + " km.");
+        } else {
+            System.out.println("Distance must be positive.");
+        }
+    }
+
+    // Feature 3: Check if maintenance is due
+    public boolean isMaintenanceDue() {
+        return mileage >= 10000; // Example threshold
+    }
+}
+
+
+public class CarLorrenMain {
+
+    public static void main(String[] args) {
+        // Create Car object
+        CarLorren car = new CarLorren("Toyota", "Corolla", 2018, 9500);
+
+        // Display all details
+        System.out.println("=== Initial Car Details ===");
+        System.out.println("Company: " + car.getCompanyName());
+        System.out.println("Model: " + car.getModelName());
+        System.out.println("Year: " + car.getYear());
+        System.out.println("Mileage: " + car.getMileage() + " km");
+        System.out.println("Car Age: " + car.getCarAge(2025) + " years");
+        System.out.println("Maintenance Due: " + (car.isMaintenanceDue() ? "Yes" : "No"));
+
+        // Add mileage (simulate driving)
+        car.addMileage(600);
+        System.out.println("\nAfter driving 600 km:");
+        System.out.println("Mileage: " + car.getMileage() + " km");
+        System.out.println("Maintenance Due: " + (car.isMaintenanceDue() ? "Yes" : "No"));
+
+        // Update car year to test age calculation
+        car.setYear(2015);
+        System.out.println("\nAfter updating car year to 2015:");
+        System.out.println("Car Age: " + car.getCarAge(2025) + " years");
+    }
+}
