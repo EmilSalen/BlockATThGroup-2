@@ -1,0 +1,72 @@
+import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+class Employee {
+    private int employee_id;
+    private String employee_name;
+    private double employee_salary;
+
+    // Setter para sa ID
+    public void setEmployeeId(int id) {
+        this.employee_id = id;
+    }
+
+    // Getter para sa ID
+    public int getEmployeeId() {
+        return employee_id;
+    }
+
+    // Setter para sa pangalan (stores initials only)
+    public void setEmployeeName(String name) {
+        String[] parts = name.trim().split("\\s+");
+
+        if (parts.length >= 2) {
+            char firstInitial = Character.toUpperCase(parts[0].charAt(0));
+            char lastInitial = Character.toUpperCase(parts[parts.length - 1].charAt(0));
+            this.employee_name = firstInitial + " " + lastInitial;
+        } else {
+            char initial = Character.toUpperCase(parts[0].charAt(0));
+            this.employee_name = String.valueOf(initial);
+        }
+    }
+
+    // Getter para sa Name (Name lang talaga yan s'ya)
+    public String getEmployeeName() {
+        return employee_name;
+    }
+
+    // Setter para sa sweldo
+    public void setEmployeeSalary(double salary) {
+        this.employee_salary = salary;
+    }
+
+        public String getEmployeeSalary() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "PH"));
+        return formatter.format(employee_salary);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Employee emp = new Employee();
+
+        System.out.print("Enter Employee ID: ");
+        emp.setEmployeeId(scanner.nextInt());
+        scanner.nextLine(); // consume newline
+
+        System.out.print("Enter Full Name: ");
+        emp.setEmployeeName(scanner.nextLine());
+
+        System.out.print("Enter Salary: ");
+        emp.setEmployeeSalary(scanner.nextDouble());
+
+        System.out.println("\nEmployee Details");
+        System.out.println("ID: " + emp.getEmployeeId());
+        System.out.println("Name: " + emp.getEmployeeName());
+        System.out.println("Salary: " + emp.getEmployeeSalary());
+
+        scanner.close();
+    }
+}
