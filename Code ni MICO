@@ -60,7 +60,6 @@ public class Employee {
 }
 
 
-
 public class EmployeeMain {
 	
     public static void main(String[] args) {
@@ -73,5 +72,96 @@ public class EmployeeMain {
         emp.increaseSalary(10);
         System.out.println("\nAfter 10% salary increase:");
         System.out.println(emp.displayDetails());
+    }
+}
+
+
+
+
+
+public class Car {
+	
+    // Private instance variables
+    private String company_name;
+    private String model_name;
+    private int year;
+    private double mileage;
+
+    // Constructor
+    public Car(String company, String model, int year, double mileage) {
+        this.company_name = company;
+        this.model_name = model;
+        this.year = year;
+        this.mileage = mileage;
+    }
+
+    // Getter and Setter for company_name
+    public String getCompanyName() {
+        return company_name;
+    }
+
+    public void setCompanyName(String company) {
+        this.company_name = company;
+    }
+
+    // Getter and Setter for model_name
+    public String getModelName() {
+        return model_name;
+    }
+
+    public void setModelName(String model) {
+        this.model_name = model;
+    }
+
+    // Getter and Setter for year
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    // Getter for mileage
+    public double getMileage() {
+        return mileage;
+    }
+
+    // Additional feature: Calculate car age
+    public int getCarAge() {
+        int currentYear = java.time.Year.now().getValue();
+        return currentYear - year;
+    }
+
+    // New Feature 1: Estimate resale value
+    public double estimateResaleValue() {
+        double baseValue = 20000; // example base value
+        double depreciation = 0.05 * getCarAge() * baseValue;
+        double resaleValue = baseValue - depreciation;
+        return resaleValue > 0 ? resaleValue : 0;
+    }
+
+    // New Feature 2: Check if car is vintage
+    public boolean isVintage() {
+        return getCarAge() > 25;
+    }
+}
+
+
+public class CarMain {
+    
+	public static void main(String[] args) {
+        Car car = new Car("Toyota", "Corolla", 1995, 15.5);
+
+        // Display car details
+        System.out.println("Company Name: " + car.getCompanyName());
+        System.out.println("Model Name: " + car.getModelName());
+        System.out.println("Year: " + car.getYear());
+        System.out.println("Mileage: " + car.getMileage() + " km/l");
+        System.out.println("Car Age: " + car.getCarAge() + " years");
+
+        // Use new features
+        System.out.println("Estimated Resale Value: $" + car.estimateResaleValue());
+        System.out.println("Is Vintage? " + (car.isVintage() ? "Yes" : "No"));
     }
 }
